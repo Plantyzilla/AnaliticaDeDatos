@@ -1,0 +1,1853 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="6/5/2025 2:10:08 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="MSI"
+  DTS:CreatorName="MSI\yaelt"
+  DTS:DTSID="{5431AE92-BD27-44B0-8DBD-7C3718635F09}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5685.0"
+  DTS:LocaleID="2058"
+  DTS:ObjectName="06_Stage_Proveedor"
+  DTS:PackageType="5"
+  DTS:VersionBuild="14"
+  DTS:VersionGUID="{095DB32A-1891-4FD5-B08E-7C8AC5CA4292}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[MSI\MSSQLSERVE.Northwind]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{EC40DA0A-D1A1-4DC8-845B-222E5B7F9398}"
+      DTS:ObjectName="MSI\MSSQLSERVE.Northwind">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=MSI\MSSQLSERVE;Initial Catalog=Northwind;Provider=MSOLEDBSQL.1;Integrated Security=SSPI;Application Name=SSIS-06_Stage_Proveedor-{EC40DA0A-D1A1-4DC8-845B-222E5B7F9398}MSI\MSSQLSERVE.Northwind;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[MSI\MSSQLSERVE.stage_northwind]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{E84C44C6-4723-4A33-A294-CC60D254DE71}"
+      DTS:ObjectName="MSI\MSSQLSERVE.stage_northwind">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=MSI\MSSQLSERVE;Initial Catalog=stage_northwind;Provider=MSOLEDBSQL.1;Integrated Security=SSPI;Application Name=SSIS-06_Stage_Proveedor-{E84C44C6-4723-4A33-A294-CC60D254DE71}MSI\MSSQLSERVE.stage_northwind;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Carga_Stage_Proveedor"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Tarea Flujo de datos"
+      DTS:DTSID="{1A94E49D-3BBD-4289-8E05-3E59D212D8A5}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Carga_Stage_Proveedor"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Carga_Stage_Proveedor\Combinación de mezcla"
+              componentClassID="Microsoft.MergeJoin"
+              contactInfo="Combinación de mezcla;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;1"
+              description="Combina dos flujos de datos ordenados en uno solo mediante la combinación FULL, LEFT o INNER. Se recomienda esta transformación cuando se pueden ordenar los flujos de datos en sus orígenes."
+              name="Combinación de mezcla"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el tipo de combinación que se debe realizar."
+                  name="JoinType"
+                  typeConverter="JoinType">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el número de columnas de la clave de ordenación."
+                  name="NumKeyColumns">1</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si los valores NULL se tratan como valores iguales."
+                  name="TreatNullsAsEqual">true</property>
+                <property
+                  dataType="System.Int32"
+                  description="Indica la cantidad máxima solicitada de búferes por entrada antes del bloqueo."
+                  name="MaxBuffersPerInput">5</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Carga_Stage_Proveedor\Combinación de mezcla.Inputs[Entrada izquierda de combinación de mezcla]"
+                  hasSideEffects="true"
+                  name="Entrada izquierda de combinación de mezcla">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga_Stage_Proveedor\Combinación de mezcla.Inputs[Entrada izquierda de combinación de mezcla].Columns[SupplierID]"
+                      cachedDataType="i4"
+                      cachedName="SupplierID"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\Carga_Stage_Proveedor\Orden_Suppliers.Outputs[Salida de ordenación].Columns[SupplierID]" />
+                    <inputColumn
+                      refId="Package\Carga_Stage_Proveedor\Combinación de mezcla.Inputs[Entrada izquierda de combinación de mezcla].Columns[Copy of CompanyName]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="40"
+                      cachedName="Copy of CompanyName"
+                      lineageId="Package\Carga_Stage_Proveedor\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of CompanyName]" />
+                    <inputColumn
+                      refId="Package\Carga_Stage_Proveedor\Combinación de mezcla.Inputs[Entrada izquierda de combinación de mezcla].Columns[Copy of City]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="15"
+                      cachedName="Copy of City"
+                      lineageId="Package\Carga_Stage_Proveedor\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of City]" />
+                    <inputColumn
+                      refId="Package\Carga_Stage_Proveedor\Combinación de mezcla.Inputs[Entrada izquierda de combinación de mezcla].Columns[Copy of Region]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="15"
+                      cachedName="Copy of Region"
+                      lineageId="Package\Carga_Stage_Proveedor\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of Region]" />
+                    <inputColumn
+                      refId="Package\Carga_Stage_Proveedor\Combinación de mezcla.Inputs[Entrada izquierda de combinación de mezcla].Columns[Copy of Country]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="15"
+                      cachedName="Copy of Country"
+                      lineageId="Package\Carga_Stage_Proveedor\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of Country]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+                <input
+                  refId="Package\Carga_Stage_Proveedor\Combinación de mezcla.Inputs[Entrada derecha de combinación de mezcla]"
+                  hasSideEffects="true"
+                  name="Entrada derecha de combinación de mezcla">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga_Stage_Proveedor\Combinación de mezcla.Inputs[Entrada derecha de combinación de mezcla].Columns[proveedorid]"
+                      cachedDataType="i4"
+                      cachedName="proveedorid"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\Carga_Stage_Proveedor\Orden_Proveedores.Outputs[Salida de ordenación].Columns[proveedorid]" />
+                    <inputColumn
+                      refId="Package\Carga_Stage_Proveedor\Combinación de mezcla.Inputs[Entrada derecha de combinación de mezcla].Columns[proveedornombre]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="40"
+                      cachedName="proveedornombre"
+                      lineageId="Package\Carga_Stage_Proveedor\Orden_Proveedores.Outputs[Salida de ordenación].Columns[proveedornombre]" />
+                    <inputColumn
+                      refId="Package\Carga_Stage_Proveedor\Combinación de mezcla.Inputs[Entrada derecha de combinación de mezcla].Columns[cuidad]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="15"
+                      cachedName="cuidad"
+                      lineageId="Package\Carga_Stage_Proveedor\Orden_Proveedores.Outputs[Salida de ordenación].Columns[cuidad]" />
+                    <inputColumn
+                      refId="Package\Carga_Stage_Proveedor\Combinación de mezcla.Inputs[Entrada derecha de combinación de mezcla].Columns[region]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="15"
+                      cachedName="region"
+                      lineageId="Package\Carga_Stage_Proveedor\Orden_Proveedores.Outputs[Salida de ordenación].Columns[region]" />
+                    <inputColumn
+                      refId="Package\Carga_Stage_Proveedor\Combinación de mezcla.Inputs[Entrada derecha de combinación de mezcla].Columns[pais]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="15"
+                      cachedName="pais"
+                      lineageId="Package\Carga_Stage_Proveedor\Orden_Proveedores.Outputs[Salida de ordenación].Columns[pais]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga_Stage_Proveedor\Combinación de mezcla.Outputs[Salida de combinación de mezcla]"
+                  isSorted="true"
+                  name="Salida de combinación de mezcla">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Combinación de mezcla.Outputs[Salida de combinación de mezcla].Columns[SupplierID]"
+                      dataType="i4"
+                      lineageId="Package\Carga_Stage_Proveedor\Combinación de mezcla.Outputs[Salida de combinación de mezcla].Columns[SupplierID]"
+                      name="SupplierID"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="La columna de entrada asociada a esta columna de salida"
+                          name="InputColumnID">#{Package\Carga_Stage_Proveedor\Combinación de mezcla.Inputs[Entrada izquierda de combinación de mezcla].Columns[SupplierID]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Combinación de mezcla.Outputs[Salida de combinación de mezcla].Columns[Copy of CompanyName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="40"
+                      lineageId="Package\Carga_Stage_Proveedor\Combinación de mezcla.Outputs[Salida de combinación de mezcla].Columns[Copy of CompanyName]"
+                      name="Copy of CompanyName">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="La columna de entrada asociada a esta columna de salida"
+                          name="InputColumnID">#{Package\Carga_Stage_Proveedor\Combinación de mezcla.Inputs[Entrada izquierda de combinación de mezcla].Columns[Copy of CompanyName]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Combinación de mezcla.Outputs[Salida de combinación de mezcla].Columns[Copy of City]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      lineageId="Package\Carga_Stage_Proveedor\Combinación de mezcla.Outputs[Salida de combinación de mezcla].Columns[Copy of City]"
+                      name="Copy of City">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="La columna de entrada asociada a esta columna de salida"
+                          name="InputColumnID">#{Package\Carga_Stage_Proveedor\Combinación de mezcla.Inputs[Entrada izquierda de combinación de mezcla].Columns[Copy of City]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Combinación de mezcla.Outputs[Salida de combinación de mezcla].Columns[Copy of Region]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      lineageId="Package\Carga_Stage_Proveedor\Combinación de mezcla.Outputs[Salida de combinación de mezcla].Columns[Copy of Region]"
+                      name="Copy of Region">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="La columna de entrada asociada a esta columna de salida"
+                          name="InputColumnID">#{Package\Carga_Stage_Proveedor\Combinación de mezcla.Inputs[Entrada izquierda de combinación de mezcla].Columns[Copy of Region]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Combinación de mezcla.Outputs[Salida de combinación de mezcla].Columns[Copy of Country]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      lineageId="Package\Carga_Stage_Proveedor\Combinación de mezcla.Outputs[Salida de combinación de mezcla].Columns[Copy of Country]"
+                      name="Copy of Country">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="La columna de entrada asociada a esta columna de salida"
+                          name="InputColumnID">#{Package\Carga_Stage_Proveedor\Combinación de mezcla.Inputs[Entrada izquierda de combinación de mezcla].Columns[Copy of Country]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Combinación de mezcla.Outputs[Salida de combinación de mezcla].Columns[proveedorid]"
+                      dataType="i4"
+                      lineageId="Package\Carga_Stage_Proveedor\Combinación de mezcla.Outputs[Salida de combinación de mezcla].Columns[proveedorid]"
+                      name="proveedorid">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="La columna de entrada asociada a esta columna de salida"
+                          name="InputColumnID">#{Package\Carga_Stage_Proveedor\Combinación de mezcla.Inputs[Entrada derecha de combinación de mezcla].Columns[proveedorid]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Combinación de mezcla.Outputs[Salida de combinación de mezcla].Columns[proveedornombre]"
+                      codePage="1252"
+                      dataType="str"
+                      length="40"
+                      lineageId="Package\Carga_Stage_Proveedor\Combinación de mezcla.Outputs[Salida de combinación de mezcla].Columns[proveedornombre]"
+                      name="proveedornombre">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="La columna de entrada asociada a esta columna de salida"
+                          name="InputColumnID">#{Package\Carga_Stage_Proveedor\Combinación de mezcla.Inputs[Entrada derecha de combinación de mezcla].Columns[proveedornombre]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Combinación de mezcla.Outputs[Salida de combinación de mezcla].Columns[cuidad]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      lineageId="Package\Carga_Stage_Proveedor\Combinación de mezcla.Outputs[Salida de combinación de mezcla].Columns[cuidad]"
+                      name="cuidad">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="La columna de entrada asociada a esta columna de salida"
+                          name="InputColumnID">#{Package\Carga_Stage_Proveedor\Combinación de mezcla.Inputs[Entrada derecha de combinación de mezcla].Columns[cuidad]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Combinación de mezcla.Outputs[Salida de combinación de mezcla].Columns[region]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      lineageId="Package\Carga_Stage_Proveedor\Combinación de mezcla.Outputs[Salida de combinación de mezcla].Columns[region]"
+                      name="region">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="La columna de entrada asociada a esta columna de salida"
+                          name="InputColumnID">#{Package\Carga_Stage_Proveedor\Combinación de mezcla.Inputs[Entrada derecha de combinación de mezcla].Columns[region]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Combinación de mezcla.Outputs[Salida de combinación de mezcla].Columns[pais]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      lineageId="Package\Carga_Stage_Proveedor\Combinación de mezcla.Outputs[Salida de combinación de mezcla].Columns[pais]"
+                      name="pais">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="La columna de entrada asociada a esta columna de salida"
+                          name="InputColumnID">#{Package\Carga_Stage_Proveedor\Combinación de mezcla.Inputs[Entrada derecha de combinación de mezcla].Columns[pais]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga_Stage_Proveedor\Conversión de datos"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Conversión de datos;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;0"
+              description="Conversión de datos"
+              name="Conversión de datos"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Carga_Stage_Proveedor\Conversión de datos.Inputs[Entrada de conversión de datos]"
+                  name="Entrada de conversión de datos">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga_Stage_Proveedor\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[CompanyName]"
+                      cachedDataType="wstr"
+                      cachedLength="40"
+                      cachedName="CompanyName"
+                      lineageId="Package\Carga_Stage_Proveedor\Orden_Suppliers.Outputs[Salida de ordenación].Columns[CompanyName]" />
+                    <inputColumn
+                      refId="Package\Carga_Stage_Proveedor\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[City]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="City"
+                      lineageId="Package\Carga_Stage_Proveedor\Orden_Suppliers.Outputs[Salida de ordenación].Columns[City]" />
+                    <inputColumn
+                      refId="Package\Carga_Stage_Proveedor\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[Region]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="Region"
+                      lineageId="Package\Carga_Stage_Proveedor\Orden_Suppliers.Outputs[Salida de ordenación].Columns[Region]" />
+                    <inputColumn
+                      refId="Package\Carga_Stage_Proveedor\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[Country]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="Country"
+                      lineageId="Package\Carga_Stage_Proveedor\Orden_Suppliers.Outputs[Salida de ordenación].Columns[Country]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga_Stage_Proveedor\Conversión de datos.Outputs[Salida de conversión de datos]"
+                  exclusionGroup="1"
+                  name="Salida de conversión de datos"
+                  synchronousInputId="Package\Carga_Stage_Proveedor\Conversión de datos.Inputs[Entrada de conversión de datos]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of CompanyName]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      length="40"
+                      lineageId="Package\Carga_Stage_Proveedor\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of CompanyName]"
+                      name="Copy of CompanyName"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\Carga_Stage_Proveedor\Orden_Suppliers.Outputs[Salida de ordenación].Columns[CompanyName]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of City]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      length="15"
+                      lineageId="Package\Carga_Stage_Proveedor\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of City]"
+                      name="Copy of City"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\Carga_Stage_Proveedor\Orden_Suppliers.Outputs[Salida de ordenación].Columns[City]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of Region]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      length="15"
+                      lineageId="Package\Carga_Stage_Proveedor\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of Region]"
+                      name="Copy of Region"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\Carga_Stage_Proveedor\Orden_Suppliers.Outputs[Salida de ordenación].Columns[Region]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of Country]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      length="15"
+                      lineageId="Package\Carga_Stage_Proveedor\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copy of Country]"
+                      name="Copy of Country"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\Carga_Stage_Proveedor\Orden_Suppliers.Outputs[Salida de ordenación].Columns[Country]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga_Stage_Proveedor\Conversión de datos.Outputs[Salida de error de conversión de datos]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de conversión de datos"
+                  synchronousInputId="Package\Carga_Stage_Proveedor\Conversión de datos.Inputs[Entrada de conversión de datos]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga_Stage_Proveedor\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga_Stage_Proveedor\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga_Stage_Proveedor\Destino de OLE DB"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Destino de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
+              description="Destino de OLE DB"
+              name="Destino de OLE DB"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowset">[dbo].[proveedor]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si los valores proporcionados para columnas de identidad se van a copiar al destino. Si es False, los valores de las columnas de identidad se generan automáticamente en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si las columnas que contienen NULL tendrán NULL insertado en el destino. Si es False, las columnas que contienen NULL tendrán sus valores predeterminados insertados en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica opciones para usar con la carga rápida. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadOptions"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica cuándo se emiten confirmaciones durante la inserción de datos. El valor 0 especifica que se emitirá una confirmación al final de la inserción de datos. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga_Stage_Proveedor\Destino de OLE DB.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[MSI\MSSQLSERVE.stage_northwind]"
+                  connectionManagerRefId="Package.ConnectionManagers[MSI\MSSQLSERVE.stage_northwind]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga_Stage_Proveedor\Destino de OLE DB.Inputs[Entrada de destino de OLE DB]"
+                  errorOrTruncationOperation="Insertar"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrada de destino de OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga_Stage_Proveedor\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[SupplierID]"
+                      cachedDataType="i4"
+                      cachedName="SupplierID"
+                      cachedSortKeyPosition="1"
+                      externalMetadataColumnId="Package\Carga_Stage_Proveedor\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[proveedorid]"
+                      lineageId="Package\Carga_Stage_Proveedor\Combinación de mezcla.Outputs[Salida de combinación de mezcla].Columns[SupplierID]" />
+                    <inputColumn
+                      refId="Package\Carga_Stage_Proveedor\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[Copy of CompanyName]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="40"
+                      cachedName="Copy of CompanyName"
+                      externalMetadataColumnId="Package\Carga_Stage_Proveedor\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[proveedornombre]"
+                      lineageId="Package\Carga_Stage_Proveedor\Combinación de mezcla.Outputs[Salida de combinación de mezcla].Columns[Copy of CompanyName]" />
+                    <inputColumn
+                      refId="Package\Carga_Stage_Proveedor\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[Copy of City]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="15"
+                      cachedName="Copy of City"
+                      externalMetadataColumnId="Package\Carga_Stage_Proveedor\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[cuidad]"
+                      lineageId="Package\Carga_Stage_Proveedor\Combinación de mezcla.Outputs[Salida de combinación de mezcla].Columns[Copy of City]" />
+                    <inputColumn
+                      refId="Package\Carga_Stage_Proveedor\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[Copy of Region]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="15"
+                      cachedName="Copy of Region"
+                      externalMetadataColumnId="Package\Carga_Stage_Proveedor\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[region]"
+                      lineageId="Package\Carga_Stage_Proveedor\Combinación de mezcla.Outputs[Salida de combinación de mezcla].Columns[Copy of Region]" />
+                    <inputColumn
+                      refId="Package\Carga_Stage_Proveedor\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].Columns[Copy of Country]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="15"
+                      cachedName="Copy of Country"
+                      externalMetadataColumnId="Package\Carga_Stage_Proveedor\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[pais]"
+                      lineageId="Package\Carga_Stage_Proveedor\Combinación de mezcla.Outputs[Salida de combinación de mezcla].Columns[Copy of Country]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga_Stage_Proveedor\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[proveedorid]"
+                      dataType="i4"
+                      name="proveedorid" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_Stage_Proveedor\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[proveedornombre]"
+                      codePage="1252"
+                      dataType="str"
+                      length="40"
+                      name="proveedornombre" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_Stage_Proveedor\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[cuidad]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      name="cuidad" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_Stage_Proveedor\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[region]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      name="region" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_Stage_Proveedor\Destino de OLE DB.Inputs[Entrada de destino de OLE DB].ExternalColumns[pais]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      name="pais" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga_Stage_Proveedor\Destino de OLE DB.Outputs[Salida de error de destino de OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de destino de OLE DB"
+                  synchronousInputId="Package\Carga_Stage_Proveedor\Destino de OLE DB.Inputs[Entrada de destino de OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Destino de OLE DB.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga_Stage_Proveedor\Destino de OLE DB.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Destino de OLE DB.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga_Stage_Proveedor\Destino de OLE DB.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga_Stage_Proveedor\División condicional"
+              componentClassID="Microsoft.ConditionalSplit"
+              contactInfo="División condicional;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;0"
+              description="Enruta filas de datos a diferentes salidas según el contenido de los datos. Se usan condiciones (expresiones de SSIS) para especificar las filas que se van a enrutar. Por ejemplo, se usa para separar los registros que deben limpiarse de los registros listos para ser cargados o para enrutar solamente un subconjunto de registros."
+              name="División condicional"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Carga_Stage_Proveedor\División condicional.Inputs[Entrada de división condicional]"
+                  description="Entrada en la transformación División condicional"
+                  name="Entrada de división condicional">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga_Stage_Proveedor\División condicional.Inputs[Entrada de división condicional].Columns[proveedorid]"
+                      cachedDataType="i4"
+                      cachedName="proveedorid"
+                      lineageId="Package\Carga_Stage_Proveedor\Combinación de mezcla.Outputs[Salida de combinación de mezcla].Columns[proveedorid]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga_Stage_Proveedor\División condicional.Outputs[Provedores_Nuevos]"
+                  description="Salida 1 de la transformación División condicional"
+                  errorOrTruncationOperation="Cálculo"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Provedores_Nuevos"
+                  synchronousInputId="Package\Carga_Stage_Proveedor\División condicional.Inputs[Entrada de división condicional]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Especifica la expresión. Esta versión de expresión usa identificadores de linaje en lugar de nombres de columna."
+                      name="Expression">[ISNULL](#{Package\Carga_Stage_Proveedor\Combinación de mezcla.Outputs[Salida de combinación de mezcla].Columns[proveedorid]})</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Especifica la versión descriptiva de la expresión. Esta versión de expresión usa nombres de columna."
+                      expressionType="Notify"
+                      name="FriendlyExpression">ISNULL(proveedorid)</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica la posición de la condición en la lista de condiciones que evalúa la transformación. El orden de evaluación es del menor al mayor valor."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga_Stage_Proveedor\División condicional.Outputs[Salida predeterminada de división condicional]"
+                  description="Salida predeterminada de la transformación División condicional"
+                  exclusionGroup="1"
+                  name="Salida predeterminada de división condicional"
+                  synchronousInputId="Package\Carga_Stage_Proveedor\División condicional.Inputs[Entrada de división condicional]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga_Stage_Proveedor\División condicional.Outputs[Salida de error de división condicional]"
+                  description="Salida de error de la transformación División condicional"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de división condicional"
+                  synchronousInputId="Package\Carga_Stage_Proveedor\División condicional.Inputs[Entrada de división condicional]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\División condicional.Outputs[Salida de error de división condicional].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga_Stage_Proveedor\División condicional.Outputs[Salida de error de división condicional].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\División condicional.Outputs[Salida de error de división condicional].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga_Stage_Proveedor\División condicional.Outputs[Salida de error de división condicional].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga_Stage_Proveedor\Northwind_Suppliers"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="Origen de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;7"
+              description="Origen de OLE DB"
+              name="Northwind_Suppliers"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT SupplierID, CompanyName, City, 
+isnull(Region, 'SR') as Region, Country 
+FROM Northwind.dbo.Suppliers;</property>
+                <property
+                  dataType="System.String"
+                  description="Variable que contiene el comando SQL para ejecutar."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="Asignaciones entre los parámetros del comando SQL y las variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga_Stage_Proveedor\Northwind_Suppliers.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[MSI\MSSQLSERVE.Northwind]"
+                  connectionManagerRefId="Package.ConnectionManagers[MSI\MSSQLSERVE.Northwind]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Carga_Stage_Proveedor\Northwind_Suppliers.Outputs[Salida de origen de OLE DB]"
+                  name="Salida de origen de OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Northwind_Suppliers.Outputs[Salida de origen de OLE DB].Columns[SupplierID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga_Stage_Proveedor\Northwind_Suppliers.Outputs[Salida de origen de OLE DB].ExternalColumns[SupplierID]"
+                      lineageId="Package\Carga_Stage_Proveedor\Northwind_Suppliers.Outputs[Salida de origen de OLE DB].Columns[SupplierID]"
+                      name="SupplierID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Northwind_Suppliers.Outputs[Salida de origen de OLE DB].Columns[CompanyName]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga_Stage_Proveedor\Northwind_Suppliers.Outputs[Salida de origen de OLE DB].ExternalColumns[CompanyName]"
+                      length="40"
+                      lineageId="Package\Carga_Stage_Proveedor\Northwind_Suppliers.Outputs[Salida de origen de OLE DB].Columns[CompanyName]"
+                      name="CompanyName"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Northwind_Suppliers.Outputs[Salida de origen de OLE DB].Columns[City]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga_Stage_Proveedor\Northwind_Suppliers.Outputs[Salida de origen de OLE DB].ExternalColumns[City]"
+                      length="15"
+                      lineageId="Package\Carga_Stage_Proveedor\Northwind_Suppliers.Outputs[Salida de origen de OLE DB].Columns[City]"
+                      name="City"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Northwind_Suppliers.Outputs[Salida de origen de OLE DB].Columns[Region]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga_Stage_Proveedor\Northwind_Suppliers.Outputs[Salida de origen de OLE DB].ExternalColumns[Region]"
+                      length="15"
+                      lineageId="Package\Carga_Stage_Proveedor\Northwind_Suppliers.Outputs[Salida de origen de OLE DB].Columns[Region]"
+                      name="Region"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Northwind_Suppliers.Outputs[Salida de origen de OLE DB].Columns[Country]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga_Stage_Proveedor\Northwind_Suppliers.Outputs[Salida de origen de OLE DB].ExternalColumns[Country]"
+                      length="15"
+                      lineageId="Package\Carga_Stage_Proveedor\Northwind_Suppliers.Outputs[Salida de origen de OLE DB].Columns[Country]"
+                      name="Country"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga_Stage_Proveedor\Northwind_Suppliers.Outputs[Salida de origen de OLE DB].ExternalColumns[SupplierID]"
+                      dataType="i4"
+                      name="SupplierID" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_Stage_Proveedor\Northwind_Suppliers.Outputs[Salida de origen de OLE DB].ExternalColumns[CompanyName]"
+                      dataType="wstr"
+                      length="40"
+                      name="CompanyName" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_Stage_Proveedor\Northwind_Suppliers.Outputs[Salida de origen de OLE DB].ExternalColumns[City]"
+                      dataType="wstr"
+                      length="15"
+                      name="City" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_Stage_Proveedor\Northwind_Suppliers.Outputs[Salida de origen de OLE DB].ExternalColumns[Region]"
+                      dataType="wstr"
+                      length="15"
+                      name="Region" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_Stage_Proveedor\Northwind_Suppliers.Outputs[Salida de origen de OLE DB].ExternalColumns[Country]"
+                      dataType="wstr"
+                      length="15"
+                      name="Country" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Carga_Stage_Proveedor\Northwind_Suppliers.Outputs[Salida de error de origen de OLE DB]"
+                  isErrorOut="true"
+                  name="Salida de error de origen de OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Northwind_Suppliers.Outputs[Salida de error de origen de OLE DB].Columns[SupplierID]"
+                      dataType="i4"
+                      lineageId="Package\Carga_Stage_Proveedor\Northwind_Suppliers.Outputs[Salida de error de origen de OLE DB].Columns[SupplierID]"
+                      name="SupplierID" />
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Northwind_Suppliers.Outputs[Salida de error de origen de OLE DB].Columns[CompanyName]"
+                      dataType="wstr"
+                      length="40"
+                      lineageId="Package\Carga_Stage_Proveedor\Northwind_Suppliers.Outputs[Salida de error de origen de OLE DB].Columns[CompanyName]"
+                      name="CompanyName" />
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Northwind_Suppliers.Outputs[Salida de error de origen de OLE DB].Columns[City]"
+                      dataType="wstr"
+                      length="15"
+                      lineageId="Package\Carga_Stage_Proveedor\Northwind_Suppliers.Outputs[Salida de error de origen de OLE DB].Columns[City]"
+                      name="City" />
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Northwind_Suppliers.Outputs[Salida de error de origen de OLE DB].Columns[Region]"
+                      dataType="wstr"
+                      length="15"
+                      lineageId="Package\Carga_Stage_Proveedor\Northwind_Suppliers.Outputs[Salida de error de origen de OLE DB].Columns[Region]"
+                      name="Region" />
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Northwind_Suppliers.Outputs[Salida de error de origen de OLE DB].Columns[Country]"
+                      dataType="wstr"
+                      length="15"
+                      lineageId="Package\Carga_Stage_Proveedor\Northwind_Suppliers.Outputs[Salida de error de origen de OLE DB].Columns[Country]"
+                      name="Country" />
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Northwind_Suppliers.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga_Stage_Proveedor\Northwind_Suppliers.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Northwind_Suppliers.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga_Stage_Proveedor\Northwind_Suppliers.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga_Stage_Proveedor\Orden_Proveedores"
+              componentClassID="Microsoft.Sort"
+              contactInfo="Ordenar;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;1"
+              description="Ordena los datos de entrada de manera ascendente o descendente cuando no es posible ordenarlos en su origen. Por ejemplo, se ordenan los datos de ventas por 'id. de cliente' antes de que se escriban en un archivo plano y se entreguen a otro departamento. Nota: no se recomienda realizar esta transformación para grandes flujos de datos."
+              name="Orden_Proveedores"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si la transformación Ordenar quita filas con valores de ordenación duplicados."
+                  name="EliminateDuplicates">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el número máximo de subprocesos que se deben usar para la ordenación."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Carga_Stage_Proveedor\Orden_Proveedores.Inputs[Entrada de ordenación]"
+                  name="Entrada de ordenación">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga_Stage_Proveedor\Orden_Proveedores.Inputs[Entrada de ordenación].Columns[proveedorid]"
+                      cachedDataType="i4"
+                      cachedName="proveedorid"
+                      lineageId="Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind.Outputs[Salida de origen de OLE DB].Columns[proveedorid]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Especifica las opciones de comparación para datos de caracteres."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Especifica el criterio de ordenación de la columna."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga_Stage_Proveedor\Orden_Proveedores.Inputs[Entrada de ordenación].Columns[proveedornombre]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="40"
+                      cachedName="proveedornombre"
+                      lineageId="Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind.Outputs[Salida de origen de OLE DB].Columns[proveedornombre]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Especifica las opciones de comparación para datos de caracteres."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Especifica el criterio de ordenación de la columna."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga_Stage_Proveedor\Orden_Proveedores.Inputs[Entrada de ordenación].Columns[cuidad]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="15"
+                      cachedName="cuidad"
+                      lineageId="Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind.Outputs[Salida de origen de OLE DB].Columns[cuidad]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Especifica las opciones de comparación para datos de caracteres."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Especifica el criterio de ordenación de la columna."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga_Stage_Proveedor\Orden_Proveedores.Inputs[Entrada de ordenación].Columns[region]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="15"
+                      cachedName="region"
+                      lineageId="Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind.Outputs[Salida de origen de OLE DB].Columns[region]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Especifica las opciones de comparación para datos de caracteres."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Especifica el criterio de ordenación de la columna."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga_Stage_Proveedor\Orden_Proveedores.Inputs[Entrada de ordenación].Columns[pais]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="15"
+                      cachedName="pais"
+                      lineageId="Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind.Outputs[Salida de origen de OLE DB].Columns[pais]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Especifica las opciones de comparación para datos de caracteres."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Especifica el criterio de ordenación de la columna."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga_Stage_Proveedor\Orden_Proveedores.Outputs[Salida de ordenación]"
+                  isSorted="true"
+                  name="Salida de ordenación">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Orden_Proveedores.Outputs[Salida de ordenación].Columns[proveedorid]"
+                      dataType="i4"
+                      lineageId="Package\Carga_Stage_Proveedor\Orden_Proveedores.Outputs[Salida de ordenación].Columns[proveedorid]"
+                      name="proveedorid"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica el identificador de linaje de la columna de entrada que está asociada a esta columna de salida."
+                          name="SortColumnId">#{Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind.Outputs[Salida de origen de OLE DB].Columns[proveedorid]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Orden_Proveedores.Outputs[Salida de ordenación].Columns[proveedornombre]"
+                      codePage="1252"
+                      dataType="str"
+                      length="40"
+                      lineageId="Package\Carga_Stage_Proveedor\Orden_Proveedores.Outputs[Salida de ordenación].Columns[proveedornombre]"
+                      name="proveedornombre">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica el identificador de linaje de la columna de entrada que está asociada a esta columna de salida."
+                          name="SortColumnId">#{Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind.Outputs[Salida de origen de OLE DB].Columns[proveedornombre]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Orden_Proveedores.Outputs[Salida de ordenación].Columns[cuidad]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      lineageId="Package\Carga_Stage_Proveedor\Orden_Proveedores.Outputs[Salida de ordenación].Columns[cuidad]"
+                      name="cuidad">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica el identificador de linaje de la columna de entrada que está asociada a esta columna de salida."
+                          name="SortColumnId">#{Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind.Outputs[Salida de origen de OLE DB].Columns[cuidad]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Orden_Proveedores.Outputs[Salida de ordenación].Columns[region]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      lineageId="Package\Carga_Stage_Proveedor\Orden_Proveedores.Outputs[Salida de ordenación].Columns[region]"
+                      name="region">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica el identificador de linaje de la columna de entrada que está asociada a esta columna de salida."
+                          name="SortColumnId">#{Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind.Outputs[Salida de origen de OLE DB].Columns[region]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Orden_Proveedores.Outputs[Salida de ordenación].Columns[pais]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      lineageId="Package\Carga_Stage_Proveedor\Orden_Proveedores.Outputs[Salida de ordenación].Columns[pais]"
+                      name="pais">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica el identificador de linaje de la columna de entrada que está asociada a esta columna de salida."
+                          name="SortColumnId">#{Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind.Outputs[Salida de origen de OLE DB].Columns[pais]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga_Stage_Proveedor\Orden_Suppliers"
+              componentClassID="Microsoft.Sort"
+              contactInfo="Ordenar;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;1"
+              description="Ordena los datos de entrada de manera ascendente o descendente cuando no es posible ordenarlos en su origen. Por ejemplo, se ordenan los datos de ventas por 'id. de cliente' antes de que se escriban en un archivo plano y se entreguen a otro departamento. Nota: no se recomienda realizar esta transformación para grandes flujos de datos."
+              name="Orden_Suppliers"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si la transformación Ordenar quita filas con valores de ordenación duplicados."
+                  name="EliminateDuplicates">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el número máximo de subprocesos que se deben usar para la ordenación."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Carga_Stage_Proveedor\Orden_Suppliers.Inputs[Entrada de ordenación]"
+                  name="Entrada de ordenación">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga_Stage_Proveedor\Orden_Suppliers.Inputs[Entrada de ordenación].Columns[SupplierID]"
+                      cachedDataType="i4"
+                      cachedName="SupplierID"
+                      lineageId="Package\Carga_Stage_Proveedor\Northwind_Suppliers.Outputs[Salida de origen de OLE DB].Columns[SupplierID]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Especifica las opciones de comparación para datos de caracteres."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Especifica el criterio de ordenación de la columna."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga_Stage_Proveedor\Orden_Suppliers.Inputs[Entrada de ordenación].Columns[CompanyName]"
+                      cachedDataType="wstr"
+                      cachedLength="40"
+                      cachedName="CompanyName"
+                      lineageId="Package\Carga_Stage_Proveedor\Northwind_Suppliers.Outputs[Salida de origen de OLE DB].Columns[CompanyName]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Especifica las opciones de comparación para datos de caracteres."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Especifica el criterio de ordenación de la columna."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga_Stage_Proveedor\Orden_Suppliers.Inputs[Entrada de ordenación].Columns[City]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="City"
+                      lineageId="Package\Carga_Stage_Proveedor\Northwind_Suppliers.Outputs[Salida de origen de OLE DB].Columns[City]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Especifica las opciones de comparación para datos de caracteres."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Especifica el criterio de ordenación de la columna."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga_Stage_Proveedor\Orden_Suppliers.Inputs[Entrada de ordenación].Columns[Region]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="Region"
+                      lineageId="Package\Carga_Stage_Proveedor\Northwind_Suppliers.Outputs[Salida de origen de OLE DB].Columns[Region]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Especifica las opciones de comparación para datos de caracteres."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Especifica el criterio de ordenación de la columna."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Carga_Stage_Proveedor\Orden_Suppliers.Inputs[Entrada de ordenación].Columns[Country]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="Country"
+                      lineageId="Package\Carga_Stage_Proveedor\Northwind_Suppliers.Outputs[Salida de origen de OLE DB].Columns[Country]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Especifica las opciones de comparación para datos de caracteres."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Especifica el criterio de ordenación de la columna."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga_Stage_Proveedor\Orden_Suppliers.Outputs[Salida de ordenación]"
+                  isSorted="true"
+                  name="Salida de ordenación">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Orden_Suppliers.Outputs[Salida de ordenación].Columns[SupplierID]"
+                      dataType="i4"
+                      lineageId="Package\Carga_Stage_Proveedor\Orden_Suppliers.Outputs[Salida de ordenación].Columns[SupplierID]"
+                      name="SupplierID"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica el identificador de linaje de la columna de entrada que está asociada a esta columna de salida."
+                          name="SortColumnId">#{Package\Carga_Stage_Proveedor\Northwind_Suppliers.Outputs[Salida de origen de OLE DB].Columns[SupplierID]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Orden_Suppliers.Outputs[Salida de ordenación].Columns[CompanyName]"
+                      dataType="wstr"
+                      length="40"
+                      lineageId="Package\Carga_Stage_Proveedor\Orden_Suppliers.Outputs[Salida de ordenación].Columns[CompanyName]"
+                      name="CompanyName">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica el identificador de linaje de la columna de entrada que está asociada a esta columna de salida."
+                          name="SortColumnId">#{Package\Carga_Stage_Proveedor\Northwind_Suppliers.Outputs[Salida de origen de OLE DB].Columns[CompanyName]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Orden_Suppliers.Outputs[Salida de ordenación].Columns[City]"
+                      dataType="wstr"
+                      length="15"
+                      lineageId="Package\Carga_Stage_Proveedor\Orden_Suppliers.Outputs[Salida de ordenación].Columns[City]"
+                      name="City">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica el identificador de linaje de la columna de entrada que está asociada a esta columna de salida."
+                          name="SortColumnId">#{Package\Carga_Stage_Proveedor\Northwind_Suppliers.Outputs[Salida de origen de OLE DB].Columns[City]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Orden_Suppliers.Outputs[Salida de ordenación].Columns[Region]"
+                      dataType="wstr"
+                      length="15"
+                      lineageId="Package\Carga_Stage_Proveedor\Orden_Suppliers.Outputs[Salida de ordenación].Columns[Region]"
+                      name="Region">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica el identificador de linaje de la columna de entrada que está asociada a esta columna de salida."
+                          name="SortColumnId">#{Package\Carga_Stage_Proveedor\Northwind_Suppliers.Outputs[Salida de origen de OLE DB].Columns[Region]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Orden_Suppliers.Outputs[Salida de ordenación].Columns[Country]"
+                      dataType="wstr"
+                      length="15"
+                      lineageId="Package\Carga_Stage_Proveedor\Orden_Suppliers.Outputs[Salida de ordenación].Columns[Country]"
+                      name="Country">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica el identificador de linaje de la columna de entrada que está asociada a esta columna de salida."
+                          name="SortColumnId">#{Package\Carga_Stage_Proveedor\Northwind_Suppliers.Outputs[Salida de origen de OLE DB].Columns[Country]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="Origen de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;7"
+              description="Origen de OLE DB"
+              name="Proveedor_Stage_Northwind"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowset">[dbo].[proveedor]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="Variable que contiene el comando SQL para ejecutar."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="Asignaciones entre los parámetros del comando SQL y las variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[MSI\MSSQLSERVE.stage_northwind]"
+                  connectionManagerRefId="Package.ConnectionManagers[MSI\MSSQLSERVE.stage_northwind]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind.Outputs[Salida de origen de OLE DB]"
+                  name="Salida de origen de OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind.Outputs[Salida de origen de OLE DB].Columns[proveedorid]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind.Outputs[Salida de origen de OLE DB].ExternalColumns[proveedorid]"
+                      lineageId="Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind.Outputs[Salida de origen de OLE DB].Columns[proveedorid]"
+                      name="proveedorid"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind.Outputs[Salida de origen de OLE DB].Columns[proveedornombre]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind.Outputs[Salida de origen de OLE DB].ExternalColumns[proveedornombre]"
+                      length="40"
+                      lineageId="Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind.Outputs[Salida de origen de OLE DB].Columns[proveedornombre]"
+                      name="proveedornombre"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind.Outputs[Salida de origen de OLE DB].Columns[cuidad]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind.Outputs[Salida de origen de OLE DB].ExternalColumns[cuidad]"
+                      length="15"
+                      lineageId="Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind.Outputs[Salida de origen de OLE DB].Columns[cuidad]"
+                      name="cuidad"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind.Outputs[Salida de origen de OLE DB].Columns[region]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind.Outputs[Salida de origen de OLE DB].ExternalColumns[region]"
+                      length="15"
+                      lineageId="Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind.Outputs[Salida de origen de OLE DB].Columns[region]"
+                      name="region"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind.Outputs[Salida de origen de OLE DB].Columns[pais]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind.Outputs[Salida de origen de OLE DB].ExternalColumns[pais]"
+                      length="15"
+                      lineageId="Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind.Outputs[Salida de origen de OLE DB].Columns[pais]"
+                      name="pais"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind.Outputs[Salida de origen de OLE DB].ExternalColumns[proveedorid]"
+                      dataType="i4"
+                      name="proveedorid" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind.Outputs[Salida de origen de OLE DB].ExternalColumns[proveedornombre]"
+                      codePage="1252"
+                      dataType="str"
+                      length="40"
+                      name="proveedornombre" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind.Outputs[Salida de origen de OLE DB].ExternalColumns[cuidad]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      name="cuidad" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind.Outputs[Salida de origen de OLE DB].ExternalColumns[region]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      name="region" />
+                    <externalMetadataColumn
+                      refId="Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind.Outputs[Salida de origen de OLE DB].ExternalColumns[pais]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      name="pais" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind.Outputs[Salida de error de origen de OLE DB]"
+                  isErrorOut="true"
+                  name="Salida de error de origen de OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind.Outputs[Salida de error de origen de OLE DB].Columns[proveedorid]"
+                      dataType="i4"
+                      lineageId="Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind.Outputs[Salida de error de origen de OLE DB].Columns[proveedorid]"
+                      name="proveedorid" />
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind.Outputs[Salida de error de origen de OLE DB].Columns[proveedornombre]"
+                      codePage="1252"
+                      dataType="str"
+                      length="40"
+                      lineageId="Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind.Outputs[Salida de error de origen de OLE DB].Columns[proveedornombre]"
+                      name="proveedornombre" />
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind.Outputs[Salida de error de origen de OLE DB].Columns[cuidad]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      lineageId="Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind.Outputs[Salida de error de origen de OLE DB].Columns[cuidad]"
+                      name="cuidad" />
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind.Outputs[Salida de error de origen de OLE DB].Columns[region]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      lineageId="Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind.Outputs[Salida de error de origen de OLE DB].Columns[region]"
+                      name="region" />
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind.Outputs[Salida de error de origen de OLE DB].Columns[pais]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      lineageId="Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind.Outputs[Salida de error de origen de OLE DB].Columns[pais]"
+                      name="pais" />
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Carga_Stage_Proveedor.Paths[Provedores_Nuevos]"
+              endId="Package\Carga_Stage_Proveedor\Destino de OLE DB.Inputs[Entrada de destino de OLE DB]"
+              name="Provedores_Nuevos"
+              startId="Package\Carga_Stage_Proveedor\División condicional.Outputs[Provedores_Nuevos]" />
+            <path
+              refId="Package\Carga_Stage_Proveedor.Paths[Salida de combinación de mezcla]"
+              endId="Package\Carga_Stage_Proveedor\División condicional.Inputs[Entrada de división condicional]"
+              name="Salida de combinación de mezcla"
+              startId="Package\Carga_Stage_Proveedor\Combinación de mezcla.Outputs[Salida de combinación de mezcla]" />
+            <path
+              refId="Package\Carga_Stage_Proveedor.Paths[Salida de conversión de datos]"
+              endId="Package\Carga_Stage_Proveedor\Combinación de mezcla.Inputs[Entrada izquierda de combinación de mezcla]"
+              name="Salida de conversión de datos"
+              startId="Package\Carga_Stage_Proveedor\Conversión de datos.Outputs[Salida de conversión de datos]" />
+            <path
+              refId="Package\Carga_Stage_Proveedor.Paths[Salida de ordenación]"
+              endId="Package\Carga_Stage_Proveedor\Conversión de datos.Inputs[Entrada de conversión de datos]"
+              name="Salida de ordenación"
+              startId="Package\Carga_Stage_Proveedor\Orden_Suppliers.Outputs[Salida de ordenación]" />
+            <path
+              refId="Package\Carga_Stage_Proveedor.Paths[Salida de ordenación1]"
+              endId="Package\Carga_Stage_Proveedor\Combinación de mezcla.Inputs[Entrada derecha de combinación de mezcla]"
+              name="Salida de ordenación"
+              startId="Package\Carga_Stage_Proveedor\Orden_Proveedores.Outputs[Salida de ordenación]" />
+            <path
+              refId="Package\Carga_Stage_Proveedor.Paths[Salida de origen de OLE DB]"
+              endId="Package\Carga_Stage_Proveedor\Orden_Suppliers.Inputs[Entrada de ordenación]"
+              name="Salida de origen de OLE DB"
+              startId="Package\Carga_Stage_Proveedor\Northwind_Suppliers.Outputs[Salida de origen de OLE DB]" />
+            <path
+              refId="Package\Carga_Stage_Proveedor.Paths[Salida de origen de OLE DB1]"
+              endId="Package\Carga_Stage_Proveedor\Orden_Proveedores.Inputs[Entrada de ordenación]"
+              name="Salida de origen de OLE DB"
+              startId="Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind.Outputs[Salida de origen de OLE DB]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--Esta sección CDATA contiene la información de diseño del paquete. Esta sección incluye información como, por ejemplo, las coordenadas (x,y), el ancho y el alto.-->
+<!--Si edita manualmente esta sección y comete un error, puede eliminarlo. -->
+<!--El paquete podrá cargarse normalmente, pero se perderá la información de diseño anterior y el diseñador reorganizará los elementos automáticamente en la superficie de diseño.-->
+<Objects
+  Version="8">
+  <!--Cada uno de los nodos siguientes contiene propiedades que no afectan al comportamiento en tiempo de ejecución.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="193.6,41.6"
+          Id="Package\Carga_Stage_Proveedor"
+          TopLeft="469.166641032531,106.599999258717" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Carga_Stage_Proveedor">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="174.4,41.6"
+          Id="Package\Carga_Stage_Proveedor\Northwind_Suppliers"
+          TopLeft="200.833322360284,136.933332381116" />
+        <NodeLayout
+          Size="212,41.6"
+          Id="Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind"
+          TopLeft="589.16663447602,136.066665720476" />
+        <NodeLayout
+          Size="156.8,41.6"
+          Id="Package\Carga_Stage_Proveedor\Orden_Suppliers"
+          TopLeft="212.499988389512,266.066664816472" />
+        <NodeLayout
+          Size="172,41.6"
+          Id="Package\Carga_Stage_Proveedor\Orden_Proveedores"
+          TopLeft="604.166633656456,343.19999761343" />
+        <EdgeLayout
+          Id="Package\Carga_Stage_Proveedor.Paths[Salida de origen de OLE DB]"
+          TopLeft="289.466655374898,178.533332381116">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,87.5333324353562"
+              Start="0,0"
+              End="0,80.0333324353562">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,80.0333324353562" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga_Stage_Proveedor.Paths[Salida de origen de OLE DB1]"
+          TopLeft="692.666634066238,177.666665720476">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,165.533331892954"
+              Start="0,0"
+              End="0,158.033331892954">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,158.033331892954" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="173.6,41.6"
+          Id="Package\Carga_Stage_Proveedor\Conversión de datos"
+          TopLeft="200.833322360284,357.06666418367" />
+        <EdgeLayout
+          Id="Package\Carga_Stage_Proveedor.Paths[Salida de ordenación]"
+          TopLeft="289.266655374898,307.666664816472">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,49.3999993671973"
+              Start="0,0"
+              End="0,41.8999993671973">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,41.8999993671973" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="189.6,41.6"
+          Id="Package\Carga_Stage_Proveedor\Combinación de mezcla"
+          TopLeft="405.833311159579,519.999996383985" />
+        <EdgeLayout
+          Id="Package\Carga_Stage_Proveedor.Paths[Salida de conversión de datos]"
+          TopLeft="287.633322360284,398.66666418367">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="182.733322132628,121.333332200315"
+              Start="0,0"
+              End="182.733322132628,113.833332200315">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,68.1907943049576" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,68.1907943049576"
+                    Point2="0,72.1907943049576"
+                    Point3="4,72.1907943049576" />
+                  <mssgle:LineSegment
+                    End="178.733322132628,72.1907943049576" />
+                  <mssgle:CubicBezierSegment
+                    Point1="178.733322132628,72.1907943049576"
+                    Point2="182.733322132628,72.1907943049576"
+                    Point3="182.733322132628,76.1907943049576" />
+                  <mssgle:LineSegment
+                    End="182.733322132628,113.833332200315" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga_Stage_Proveedor.Paths[Salida de ordenación1]"
+          TopLeft="690.166633656456,384.79999761343">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-159.266655830211,135.199998770555"
+              Start="0,0"
+              End="-159.266655830211,127.699998770555">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,76.4411708166232" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,76.4411708166232"
+                    Point2="0,80.4411708166232"
+                    Point3="-4,80.4411708166232" />
+                  <mssgle:LineSegment
+                    End="-155.266655830211,80.4411708166232" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-155.266655830211,80.4411708166232"
+                    Point2="-159.266655830211,80.4411708166232"
+                    Point3="-159.266655830211,84.4411708166232" />
+                  <mssgle:LineSegment
+                    End="-159.266655830211,127.699998770555" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="169.6,41.6"
+          Id="Package\Carga_Stage_Proveedor\División condicional"
+          TopLeft="418.333310476609,628.266662881904" />
+        <EdgeLayout
+          Id="Package\Carga_Stage_Proveedor.Paths[Salida de combinación de mezcla]"
+          TopLeft="501.883310818094,561.599996383985">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,66.6666664979191"
+              Start="0,0"
+              End="0,59.1666664979191">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,59.1666664979191" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="168.8,41.6"
+          Id="Package\Carga_Stage_Proveedor\Destino de OLE DB"
+          TopLeft="420.833310340015,716.333329687185" />
+        <EdgeLayout
+          Id="Package\Carga_Stage_Proveedor.Paths[Provedores_Nuevos]"
+          TopLeft="504.183310408312,669.866662881904">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,46.4666668052806"
+              Start="0,0"
+              End="0,38.9666668052806">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,38.9666668052806" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-43.987578125,13.9520834026403,87.97515625,11.0625"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga_Stage_Proveedor\Northwind_Suppliers">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga_Stage_Proveedor\Proveedor_Stage_Northwind">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga_Stage_Proveedor\Destino de OLE DB">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

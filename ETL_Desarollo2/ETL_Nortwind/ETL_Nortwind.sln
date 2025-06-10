@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{C9674DCB-5085-4A16-B785-4C70DD1589BD}") = "Stage_Northwind", "ETL_Nortwind\Stage_Northwind.dtproj", "{CC854D88-1E8D-5066-5212-65A8627C86DF}"
+EndProject
+Project("{C9674DCB-5085-4A16-B785-4C70DD1589BD}") = "DataMart_Northwind", "DataMart_Northwind\DataMart_Northwind.dtproj", "{37AAA9EC-7CD0-3077-0152-227FBE1DC51E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Development|Default = Development|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CC854D88-1E8D-5066-5212-65A8627C86DF}.Development|Default.ActiveCfg = Development
+		{CC854D88-1E8D-5066-5212-65A8627C86DF}.Development|Default.Build.0 = Development
+		{37AAA9EC-7CD0-3077-0152-227FBE1DC51E}.Development|Default.ActiveCfg = Development
+		{37AAA9EC-7CD0-3077-0152-227FBE1DC51E}.Development|Default.Build.0 = Development
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9D8723E9-D411-4BCB-A6A6-495DC06F8FF7}
+	EndGlobalSection
+EndGlobal
