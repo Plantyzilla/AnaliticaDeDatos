@@ -11,8 +11,8 @@
   DTS:LocaleID="2058"
   DTS:ObjectName="01-Stage_Empleado"
   DTS:PackageType="5"
-  DTS:VersionBuild="13"
-  DTS:VersionGUID="{14A7E120-F90F-48ED-B10B-B91986865041}">
+  DTS:VersionBuild="18"
+  DTS:VersionGUID="{66CB3208-7766-4D6F-8AC0-6F3D85324465}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -1554,25 +1554,25 @@ from Northwind.dbo.Employees;</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\CARGA STAGE_EMPLEADO.Paths[Empleados_Nuevos]"
-          TopLeft="491.383311501064,523.466663315826">
+          TopLeft="491.383311501063,523.466663315826">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,70.1999992225569"
+              EndConnector="0,70.199999222557"
               Start="0,0"
-              End="0,62.6999992225569">
+              End="0,62.699999222557">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,62.6999992225569" />
+                    End="0,62.699999222557" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-52.20623046875,23.3499996112785,104.4124609375,16"
+              BoundingBox="-43.337578125,25.5453121112785,86.67515625,11.609375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
